@@ -12,6 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/books")
+/**
+ * Controller for managing books in the book management API.
+ * Provides endpoints to create, read, update, and delete books.
+ */
 public class BookController {
 
     @Autowired

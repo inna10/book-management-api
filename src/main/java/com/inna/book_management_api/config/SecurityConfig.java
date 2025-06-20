@@ -26,7 +26,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())// Disable CSRF since it is a none-browser application
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/h2-console/**").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/h2-console/**").permitAll()// Allow access to Swagger and H2 console without authentication
                 .requestMatchers(HttpMethod.DELETE, "/books/**").hasRole("ADMIN")
                 .requestMatchers("/books/**").authenticated()
                 .anyRequest().authenticated()
@@ -39,6 +39,7 @@ public class SecurityConfig {
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
+        //TODO: Use a database or external service for user management in production
         UserDetails user = User.builder()
             .username("user")
             .password(passwordEncoder().encode("userpass"))
