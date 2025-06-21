@@ -1,5 +1,6 @@
 package com.inna.jpa_one2many.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class User {
     private String name;
     private String email;
 
+    @JsonManagedReference   // prevents infinite recursion during serialization
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 

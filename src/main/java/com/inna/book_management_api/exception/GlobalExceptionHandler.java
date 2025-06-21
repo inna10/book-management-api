@@ -1,5 +1,7 @@
 package com.inna.book_management_api.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ import java.util.List;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     /**
      * Handles BookNotFoundException when a book is not found in the system.
      *
@@ -26,6 +31,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BookNotFoundException.class)
     public ResponseEntity<ApiError> handleBookNotFoundException(BookNotFoundException ex) {
+        logger.warn("Book not found exception: {}", ex.getMessage());
         ApiError apiError = new ApiError(
                 HttpStatus.NOT_FOUND,
                 "Book not found",
@@ -42,6 +48,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(DuplicateBookException.class)
     public ResponseEntity<ApiError> handleDuplicateBookException(DuplicateBookException ex) {
+        logger.warn("Duplicate book exception: {}", ex.getMessage());
+        // return a 409 Conflict, since this situation indicates a conflict with the current state of the resource
         ApiError apiError = new ApiError(
                 HttpStatus.CONFLICT,
                 "Duplicate book error",
@@ -58,6 +66,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiError> handleIllegalArgumentException(IllegalArgumentException ex) {
+        logger.error("Illegal argument exception: {}", ex.getMessage());
         ApiError apiError = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Invalid input",
@@ -74,9 +83,12 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleValidationErrors(MethodArgumentNotValidException ex) {
+        logger.error("Validation error occurred: {}", ex.getMessage());
         List<String> errors = new ArrayList<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " + error.getDefaultMessage());
+            String errorMessage = error.getField() + ": " + error.getDefaultMessage();
+            logger.debug("Validation error detail: {}", errorMessage);
+            errors.add(errorMessage);
         }
 
         ApiError apiError = new ApiError(
@@ -95,7 +107,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleAllUncaughtExceptions(Exception ex) {
-        //don't show the stack trace in production for security reasons
+        logger.error("Unexpected error occurred: {}", ex.getMessage(), ex);
         ApiError apiError = new ApiError(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "An unexpected error occurred",

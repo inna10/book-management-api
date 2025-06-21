@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 /**
@@ -20,6 +23,8 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
+    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+
     @Autowired
     private BookService bookService;
 
@@ -30,7 +35,10 @@ public class BookController {
      */
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks() {
-        return ResponseEntity.ok(bookService.getAllBooks());
+        logger.info("Fetching all books");
+        List<Book> books = bookService.getAllBooks();
+        logger.debug("Found {} books", books.size());
+        return ResponseEntity.ok(books);
     }
 
     /**
@@ -41,7 +49,10 @@ public class BookController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
-        return ResponseEntity.ok(bookService.getBookById(id));
+        logger.info("Fetching book with id: {}", id);
+        Book book = bookService.getBookById(id);
+        logger.debug("Found book: {}", book);
+        return ResponseEntity.ok(book);
     }
 
     /**
@@ -52,7 +63,9 @@ public class BookController {
      */
     @PostMapping
     public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
+        logger.info("Creating new book: {}", book);
         Book createdBook = bookService.createBook(book);
+        logger.info("Book created successfully with id: {}", createdBook.getId());
         return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
     }
 
@@ -65,7 +78,10 @@ public class BookController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @Valid @RequestBody Book book) {
-        return ResponseEntity.ok(bookService.updateBook(id, book));
+        logger.info("Updating book with id: {}", id);
+        Book updatedBook = bookService.updateBook(id, book);
+        logger.info("Book updated successfully");
+        return ResponseEntity.ok(updatedBook);
     }
 
     /**
@@ -76,8 +92,9 @@ public class BookController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+        logger.info("Deleting book with id: {}", id);
         bookService.deleteBook(id);
-        // Return 204 No Content status to indicate successful deletion
+        logger.info("Book deleted successfully");
         return ResponseEntity.noContent().build();
     }
 }

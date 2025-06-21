@@ -27,6 +27,7 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Configure HTTP security for the application with Basic Authentication.
         http
                 .csrf(csrf -> csrf.disable())// Disable CSRF since it is a none-browser application
                 .authorizeHttpRequests(auth -> auth

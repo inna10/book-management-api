@@ -1,5 +1,6 @@
 package com.inna.jpa_one2many.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -21,9 +22,10 @@ public class Order {
     private BigDecimal amount;
     private LocalDateTime orderDate;
 
+    @JsonBackReference   // prevents infinite recursion during serialization, having bidirectional relationship
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user; // bidirectional relationship, also just userId may be used as altrnative
 
     // Constructors
     public Order() {
