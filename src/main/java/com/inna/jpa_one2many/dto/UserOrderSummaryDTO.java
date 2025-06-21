@@ -2,6 +2,11 @@ package com.inna.jpa_one2many.dto;
 
 import java.math.BigDecimal;
 
+/**
+ * Author: Inna Eisenstark
+ * Created: 2025-06-20
+ * Description: UserOrderSummaryDTO is a Data Transfer Object that summarizes the total order amount for a user.
+ */
 public class UserOrderSummaryDTO {
     private Long userId;
     private String userName;

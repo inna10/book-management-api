@@ -6,6 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * Author: Inna Eisenstark
+ * Created: 2025-06-20
+ * Description: UserRepository interface for managing User entities in the database.
+ */
 public interface UserRepository extends JpaRepository<User, Long> {
 
     // Find users with more than 3 orders

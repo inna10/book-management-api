@@ -7,6 +7,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Author: Inna Eisenstark
+ * Created: 2025-06-20
+ * Description: OrderRepository interface for managing Order entities in the database.
+ */
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     // Find all orders for a specific user

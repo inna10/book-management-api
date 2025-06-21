@@ -10,27 +10,35 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
+/**
+ * Author: Inna Eisenstark
+ * Created: 2025-06-20
+ * Description: DataInitializerService initializes the database with sample data for testing purposes.
+ */
 @Component
 public class DataInitializerService {
 
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Initializes the database with sample data.
+     */
     @PostConstruct
     @Transactional
     public void initializeData() {
         // User with no orders
-        User user1 = new User("John Doe", "john@example.com");
+        User user1 = new User("Sarah Cohen", "sarahc@example.com");
         userRepository.save(user1);
 
         // User with 2 orders
-        User user2 = new User("Jane Smith", "jane@example.com");
+        User user2 = new User("Avram Levi", "avraml@example.com");
         user2.addOrder(new Order("ORD-1", new BigDecimal("100.00")));
         user2.addOrder(new Order("ORD-2", new BigDecimal("150.00")));
         userRepository.save(user2);
 
         // User with 4 orders (for testing more than 3 orders query)
-        User user3 = new User("Bob Wilson", "bob@example.com");
+        User user3 = new User("David Rabin", "davidr@example.com");
         user3.addOrder(new Order("ORD-3", new BigDecimal("200.00")));
         user3.addOrder(new Order("ORD-4", new BigDecimal("300.00")));
         user3.addOrder(new Order("ORD-5", new BigDecimal("400.00")));
@@ -38,7 +46,7 @@ public class DataInitializerService {
         userRepository.save(user3);
 
         // Another user with 5 orders
-        User user4 = new User("Alice Brown", "alice@example.com");
+        User user4 = new User("Rachel Katz", "rachelk@example.com");
         user4.addOrder(new Order("ORD-7", new BigDecimal("250.00")));
         user4.addOrder(new Order("ORD-8", new BigDecimal("350.00")));
         user4.addOrder(new Order("ORD-9", new BigDecimal("450.00")));
@@ -47,7 +55,7 @@ public class DataInitializerService {
         userRepository.save(user4);
 
         // Another user with no orders
-        User user5 = new User("Charlie Davis", "charlie@example.com");
+        User user5 = new User("Ruth Epstein", "Ruthe@example.com");
         userRepository.save(user5);
     }
 }

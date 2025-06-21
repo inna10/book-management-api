@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Author: Inna Eisenstark
+ * Created: 2025-06-20
+ * Description: User entity representing a user in the system.
+ */
 @Entity
 @Table(name = "users")
 public class User {

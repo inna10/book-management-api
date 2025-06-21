@@ -1,9 +1,15 @@
 package com.inna.jpa_one2many.entity;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Author: Inna Eisenstark
+ * Created: 2025-06-20
+ * Description: Order entity representing a customer's order in the system.
+ */
 @Entity
 @Table(name = "orders")
 public class Order {

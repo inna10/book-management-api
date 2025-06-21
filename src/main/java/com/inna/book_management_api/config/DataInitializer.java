@@ -6,9 +6,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Author: Inna Eisenstark
+ * Created: 2025-06-20
+ * Description: DataInitializer class to pre-populate the database with sample book data.
+ */
 @Configuration
 public class DataInitializer {
-
+    /**
+     * Initializes the database with some sample book data.
+     *
+     * @param repository the BookRepository to save the books
+     * @return a CommandLineRunner that saves sample books to the database
+     */
     @Bean
     CommandLineRunner initDatabase(BookRepository repository) {
         return args -> {

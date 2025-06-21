@@ -9,6 +9,11 @@ import jakarta.validation.constraints.*;
 
 import static com.inna.book_management_api.models.Constants.*;
 
+/**
+ * Author: Inna Eisenstark
+ * Created: 2025-06-20
+ * Description: Entity class representing a book in the book management API.
+ */
 @Entity
 public class Book {
     @Id
@@ -18,13 +23,13 @@ public class Book {
     @NotBlank(message = "Title is required")
     @NotNull(message = "Title cannot be null")
     @Size(min = MIN_TITLE_LENGTH, max = MAX_TITLE_LENGTH,
-          message = "Title must be between " + MIN_TITLE_LENGTH + " and " + MAX_TITLE_LENGTH + " characters")
+            message = "Title must be between " + MIN_TITLE_LENGTH + " and " + MAX_TITLE_LENGTH + " characters")
     private String title;
 
     @NotBlank(message = "Author is required")
     @NotNull(message = "Author cannot be null")
     @Size(min = MIN_AUTHOR_LENGTH, max = MAX_AUTHOR_LENGTH,
-          message = "Author name must be between " + MIN_AUTHOR_LENGTH + " and " + MAX_AUTHOR_LENGTH + " characters")
+            message = "Author name must be between " + MIN_AUTHOR_LENGTH + " and " + MAX_AUTHOR_LENGTH + " characters")
     @Pattern(regexp = AUTHOR_NAME_PATTERN, message = "Author name can only contain letters, spaces, dots, and hyphens")
     private String author;
 
